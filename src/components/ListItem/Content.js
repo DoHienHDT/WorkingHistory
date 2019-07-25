@@ -28,8 +28,10 @@ class Content extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    height: 150,
+    width: 250,
     alignItems: 'center',
+    
   },
   cellContainer: {
     flex: 1,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { InteractionManager, StyleSheet, Text, View, TouchableHighlight, Image } from 'react-native';
+import { InteractionManager, StyleSheet, Text, View, TouchableHighlight, Image, Alert } from 'react-native';
 import { SharedElementRenderer } from 'react-native-motion';
 
 import List from './List/List';
@@ -13,7 +13,7 @@ export default class Admin extends React.Component {
         headerLeft: null,
     
         headerStyle: {
-          backgroundColor: '#3498db',
+          backgroundColor: '#5d99c6',
         },
         headerLeft:  (<TouchableHighlight onPress={() => navigation.navigate("Login")} underlayColor={'#3498db'}>
         <Image style={{ width: 35, height: 35, marginLeft: 10 }}  source={require('../assets/back.png')} />
@@ -60,7 +60,7 @@ export default class Admin extends React.Component {
     return (
 
       <View style={{ flex: 1 }}>
-        
+     
         <List
           selectedItem={selectedItem}
           onItemPress={this.onItemPressed}
@@ -82,15 +82,16 @@ export default class Admin extends React.Component {
 
     return (
       <SharedElementRenderer>
-       <View>
-          <SearchBar
+       
+        <View style={styles.container}>
+        <SearchBar
             onPressToFocus
             autoFocus={false}
-            fontColor="white"
-            iconColor="white"
+            fontColor="gray"
+            iconColor="gray"
             shadowColor="black"
-            cancelIconColor="white"
-            backgroundColor="#3498db"
+            cancelIconColor="gray"
+            backgroundColor="white"
             placeholder="Search here"
             // onChangeText={text => {
             //   this.filterList(text);
@@ -100,9 +101,6 @@ export default class Admin extends React.Component {
             // }}
             // onPress={() => alert("onPress")}
           />
-          </View>
-        <View style={styles.container}>
-      
           {this.renderPage()}
         </View>
       </SharedElementRenderer>
@@ -111,8 +109,12 @@ export default class Admin extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  color: {
+    
+  },
   container: {
-    top: 10,
+    backgroundColor: "#90caf9",
+  
     flex: 1,
   },
 });

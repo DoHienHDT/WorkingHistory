@@ -12,44 +12,34 @@ export default class LoginController extends Component {
       };
 
       Login = async () => {
-        fetch('http://appdemo.azmax.vn/services/mobileapi.ashx', {
+        fetch('http://wework.stg73.miosys.vn/api/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "method":"login",
-                "tendangnhap": this.state.taikhoan,
-                "matkhau":this.state.matkhau,
-                "seckey":"azmax"
+                "username": this.state.taikhoan,
+                "password":this.state.matkhau,
              })
             })
           .then((response) => response.json())
           .then((responseJson) => {
             this.setState({
                 loading: true,
-                dataSource: responseJson["msg"],
-                manv: responseJson["manv"]
+                dataSource: responseJson["success"],
+                data: responseJson["data"]
               }, function(){
-      
-              }); 
-            if (this.state.dataSource !== "ok")  {
-                Alert.alert("Tên truy cập hoặc mật khẩu không đúng");
-             }
-
-              setTimeout(() => {
-                this.setState({
-                  loading: false,
-                });
-
-                if (this.state.dataSource === "ok" ) {
-                    this.props.navigation.navigate("Admin", {
-                        manv: this.state.manv
-                    });
-                }
-              }, 2500);
-
               
+              }); 
+            if (this.state.dataSource === "Login success")  {
+                if (this.state.data.group_id === 1) {
+                    // this.state.loading = false
+                    this.props.navigation.navigate("Admin");
+                }   
+             } else {
+                // this.state.loading = false
+                Alert.alert("Tên truy cập hoặc mật khẩu không đúng");
+             }    
           })
           .catch((error) => {
             console.error(error);
@@ -58,6 +48,7 @@ export default class LoginController extends Component {
     
       constructor(props) {
           super(props);
+       
           this.state = {
               taikhoan: '',
               matkhau: '',
@@ -74,7 +65,7 @@ export default class LoginController extends Component {
                     onPress ={Keyboard.dismiss}>
                         <View style ={styles.backgroundContainer}>
                                         <View style={styles.logoContainer}>
-                                            <Loader loading={this.state.loading} />
+                                            {/* <Loader loading={this.state.loading} /> */}
                                             <Image source={require('../assets/v-mio-system-logo.png')} style={styles.logo} />
                                         </View>
                                     
@@ -124,8 +115,8 @@ export default class LoginController extends Component {
                                   
                                             <TouchableOpacity style={styles.btnLogin}
                                                                 onPress={() => {
-                                                                    // this.Login();
-                                                                    this.props.navigation.navigate("Admin");
+                                                                    this.Login();
+                                                                    // this.props.navigation.navigate("Admin");
                                                                 }}>
                                             
                                                 <Text style={styles.text}>Đăng nhập</Text>
@@ -167,15 +158,15 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         fontSize: 16,
         paddingLeft: 45,
-        backgroundColor: 'rgba(0,0,0,0.35)',
-        color: 'rgba(255,255,255,0.7)',
+        backgroundColor: '#bdbdbd',
+        // color: '#bdbdbd',
         marginHorizontal: 25
     },
     btnLogin: {
         width: WIDTH - 55,
         height: 50,
         borderRadius: 25,
-        backgroundColor: '#3498db',
+        backgroundColor: '#5d99c6',
         justifyContent: 'center',
         marginTop: 140
     },

@@ -7,6 +7,7 @@ import Toolbar from './Toolbar';
 import BottomBar from './BottomBar';
 import { ListItem } from '../../components';
 import data from '../../data/data';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class List extends PureComponent {
   constructor(props) {
@@ -16,12 +17,12 @@ class List extends PureComponent {
     this.sharedElementRefs = {};
   }
   onListItemPressed = item => {
-    const { onItemPress } = this.props;
+    // const { onItemPress } = this.props;
     this.setState({ selectedItem: item });
 
-    onItemPress(item);
+    // onItemPress(item);
 
-    this.sharedElementRefs[item.name].moveToDestination();
+    // this.sharedElementRefs[item.name].moveToDestination();
   };
   onMoveToDestinationWillStart = () => {
     this.setState({ opacityOfSelectedItem: 0 });
@@ -77,17 +78,26 @@ class List extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <Toolbar
-          isHidden={phase !== 'phase-0'}
-          onBackPress={this.onBackPressed}
-        />
-        <FlatList
-          data={data}
-          dataExtra={{ phase, opacityOfSelectedItem }}
-          keyExtractor={item => item.name}
-          renderItem={this.renderItem}
-        />
-        <BottomBar isHidden={phase !== 'phase-0'} />
+        <Toolbar/>
+       
+            <FlatList
+                horizontal={true}
+                  data={data}
+                  dataExtra={{ phase, opacityOfSelectedItem }}
+                  keyExtractor={item => item.name}
+                  renderItem={this.renderItem}
+              />
+
+               <FlatList
+                horizontal={true}
+                  data={data}
+                  dataExtra={{ phase, opacityOfSelectedItem }}
+                  keyExtractor={item => item.name}
+                  renderItem={this.renderItem}
+              />
+
+        {/* <View style={styles.backgroundColorView}></View> */}
+        {/* <BottomBar isHidden={phase !== 'phase-0'} /> */}
       </View>
     );
   }
@@ -97,6 +107,12 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
   },
+  backgroundColorView:
+  {   
+    width: 1,
+    height: "100%",
+    backgroundColor: 'black'
+  }
 });
 
 export default List;

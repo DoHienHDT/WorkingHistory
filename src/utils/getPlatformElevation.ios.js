@@ -3,14 +3,16 @@
 const getPlatformElevation = elevation => {
     if (elevation === 0) {
       return {
+        backgroundColor: '#90caf9',
         shadowColor: 'transparent',
         zIndex: 0,
       };
     }
   
     return {
-      shadowColor: 'black',
-      shadowOpacity: 0.3,
+      
+      shadowColor: 'gray',
+      shadowOpacity: 1.3,
       shadowRadius: elevation / 2,
       shadowOffset: {
         height: 1,

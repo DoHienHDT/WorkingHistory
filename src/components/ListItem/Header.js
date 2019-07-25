@@ -32,6 +32,7 @@ class Header extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
+    // backgroundColor: '#90caf9',
     height: 56,
     alignItems: 'center',
   },

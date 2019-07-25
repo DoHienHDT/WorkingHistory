@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     height: 56,
     alignItems: 'center',
     paddingHorizontal: 16,
+    // backgroundColor: '#90caf9',
   },
   titleContainer: {
     flex: 1,
@@ -77,18 +78,18 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 150,
-    backgroundColor: '#008dff',
+
   },
   statusBar: {
     height: 24,
-    backgroundColor: 'white',
+
   },
   titleBackText: {
-    color: 'white',
+    color: 'red',
     marginLeft: 8,
   },
   titleText: {
-      color: "#3498db",
+      color: "white",
     fontSize: 24,
     fontWeight: '900',
   },
