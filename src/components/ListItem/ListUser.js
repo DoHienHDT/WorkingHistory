@@ -1,21 +1,14 @@
 import React, { PureComponent } from 'react';
 import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { ScaleAndOpacity } from 'react-native-motion';
-
 import Header from './Header';
-import Content from './Content';
 import { getPlatformElevation } from '../../utils';
-import { ScrollView } from 'react-native-gesture-handler';
-class ListItem extends PureComponent {
+class ListUser extends PureComponent {
 
-  onPressed = event => {
-    const { onPress, item } = this.props;
-    onPress(item, event.nativeEvent);
-  };
   render() {
 
     const { item, isSelected, style, isHidden, animateOnDidMount } = this.props;
-    const { name, isReceived, ...rest } = item;
+    const { name } = item;
 
     return (
 
@@ -23,13 +16,12 @@ class ListItem extends PureComponent {
             isHidden={isHidden}
             animateOnDidMount={animateOnDidMount}
           >
-            <TouchableWithoutFeedback onPress={this.onPressed}>
+            <TouchableWithoutFeedback>
               <View style={[styles.container, style]} pointerEvents="box-only">
                 <Header name={name} isReceived={isReceived} />
-                <Content {...rest} />
               </View>
             </TouchableWithoutFeedback>
-      </ScaleAndOpacity>
+             </ScaleAndOpacity>
      
     );
   }
@@ -47,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItem;
+export default ListUser;

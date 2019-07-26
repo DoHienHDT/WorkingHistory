@@ -70,6 +70,8 @@ export default class Admin extends React.Component {
       </View>
     );
   }
+  
+
   render() {
     const {
       selectedItem,

@@ -22,7 +22,7 @@ class Header extends PureComponent {
       <Row style={styles.container}>
         <Avatar text={name.substring(0, 1)} src={assets[name]} />
         <View style={styles.nameContainer}>
-          <Text>{name}</Text>
+          <Text>Họ và tên:   {name}</Text>
         </View>
         <View style={styles.rightContainer}>{icon}</View>
       </Row>

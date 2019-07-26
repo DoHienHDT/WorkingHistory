@@ -6,7 +6,7 @@ class Avatar extends PureComponent {
     const { text, src } = this.props;
     return (
       <View style={styles.container}>
-        <Image style={styles.container} source={src} />
+        <Image style={styles.container} source={require('../hiendeptrai.jpg')} />
       </View>
     );
   }

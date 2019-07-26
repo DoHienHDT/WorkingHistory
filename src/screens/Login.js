@@ -32,10 +32,10 @@ export default class LoginController extends Component {
               
               }); 
             if (this.state.dataSource === "Login success")  {
-                if (this.state.data.group_id === 1) {
+                // if (this.state.data.group_id === 3) {
                     // this.state.loading = false
                     this.props.navigation.navigate("Admin");
-                }   
+                // }   
              } else {
                 // this.state.loading = false
                 Alert.alert("Tên truy cập hoặc mật khẩu không đúng");
