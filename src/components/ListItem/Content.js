@@ -10,10 +10,8 @@ class Content extends PureComponent {
     return (
       
       <Row style={styles.container}>
-        <ScrollView horizontal={true}>
-     
+
           <View style={{flex:1, flexDirection: 'row'}}>
-          
                 <View style= {{flexDirection: 'column', flex:1}} >
                 <Text>TO DO </Text>
                 {
@@ -42,7 +40,7 @@ class Content extends PureComponent {
                     })}
                 </View>
               </View>
-          </ScrollView>
+       
       </Row>
    
     );
@@ -51,6 +49,7 @@ class Content extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: 400,
     width: 250,
     alignItems: 'center',

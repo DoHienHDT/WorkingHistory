@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, Alert } from 'react-native';
 import { ScaleAndOpacity } from 'react-native-motion';
 
 import Header from './Header';
@@ -15,18 +15,18 @@ class ListItem extends PureComponent {
   render() {
 
     const { item, isSelected, style, isHidden, animateOnDidMount } = this.props;
-    const { name, isReceived, ...rest } = item;
-
+    
+    const { name,created_at, isReceived, ...rest} = item;
+  
     return (
-
-          <ScaleAndOpacity
-            isHidden={isHidden}
-            animateOnDidMount={animateOnDidMount}
-          >
+      <ScaleAndOpacity
+          isHidden={isHidden}
+          animateOnDidMount={animateOnDidMount}>
             <TouchableWithoutFeedback onPress={this.onPressed}>
-              <View style={[styles.container, style]} pointerEvents="box-only">
-                <Header name={name} isReceived={isReceived} />
-                <Content {...rest} />
+              <View style={[styles.container]} pointerEvents="box-only">
+                <Header name={name} created_at={created_at} isReceived={isReceived} />
+                <Content  {...rest} />
+                  
               </View>
             </TouchableWithoutFeedback>
       </ScaleAndOpacity>

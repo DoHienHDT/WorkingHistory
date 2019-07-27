@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Text, View, FlatList, StyleSheet, Easing, Alert, SectionList} from 'react-native';
+import { Alert, View, FlatList, StyleSheet,LayoutAnimation} from 'react-native';
 
 import { SharedElement } from 'react-native-motion';
 
@@ -9,7 +9,12 @@ import { ListItem } from '../../components';
 import { ListUser } from '../../components';
 import data from '../../data/data';
 import { ScrollView } from 'react-native-gesture-handler';
+import SearchBar from "react-native-dynamic-search-bar";
+import { CustomLayoutSpring } from "react-native-animation-layout";
+
 class List extends PureComponent {
+
+
   constructor(props) {
     super(props);
     this.MemoUser();
@@ -17,8 +22,14 @@ class List extends PureComponent {
     this.sharedElementRefs = {};
     this.arrayNameUser = [];
     this.arrayTaskUser = [];
-
+    this.arrayDate = [];
+    
   }
+
+  state = {
+    dataName: []
+  };
+
 
   MemoUser = async () => {
     fetch('http://wework.stg73.miosys.vn/api/login', {
@@ -36,38 +47,38 @@ class List extends PureComponent {
         this.setState({
             loading: true,
             dataSource: responseJson["data"],
-            memo: responseJson["data"]["memo"],
-        
+            memo: responseJson.data.memo,
           }, function(){  
-            for (var i = 0; i < this.state.memo.length; i++){
-              fullname = responseJson["data"]["memo"][i]["fullname"];
-              this.arrayNameUser.push({
-                name: fullname,
-                
-               });
-            }
+            // Alert.alert(this.state.memo[1])
 
             for (var i = 0; i < this.state.memo.length; i++){
               fullname = responseJson["data"]["memo"][i]["fullname"];
+              // Alert.alert(this.state.memo.length)
               memo = responseJson["data"]["memo"][i]["memo"];
-
-              for (var i = 0; i < memo.length; i++){ 
+       
+              for (var j = 0; j < memo.length; j++) { 
               
-                todo = memo[i]["todo"]
-                doing =  memo[i]["doing"]
-                done =  memo[i]["done"]
-             
-                 this.arrayTaskUser.push({
+                todo = memo[j]["todo"]
+                doing = memo[j]["doing"]
+                done =  memo[j]["done"]
+
+                created_at = memo[j]["created_at"]
+              
+                this.arrayDate.push({
+                  created_at: created_at,
                   name: fullname,
                   todo: todo,
                   doing: doing,
                   done: done
-                 });
+                })
+
+                 sortedCars1 = this.arrayDate.sort((a, b) =>
+                 b.created_at.split('-').reverse().join().localeCompare(a.created_at.split('-').reverse().join()));
               }
              }
-             Alert.alert(memo.length)
-    
+          
           }); 
+          
       })
       .catch((error) => {
         console.error(error);
@@ -87,7 +98,7 @@ class List extends PureComponent {
   renderUser = ({ item }) => {
     const { opacityOfSelectedItem } = this.state;
     const { selectedItem } = this.props;
-
+   
     const isHidden = selectedItem && selectedItem.name !== item.name;
     const isSelected = selectedItem && selectedItem.name === item.name;
     const id = item.name;
@@ -105,39 +116,22 @@ class List extends PureComponent {
             onPress={this.getSharedNode}
             isHidden={isHidden}
         />
-     
         </View>
-   
+
     );
   };
 
-  renderItemAdmin = ({ item }) => {
-    const { opacityOfSelectedItem } = this.state;
-    const { selectedItem } = this.props;
-
-    const isHidden = selectedItem && selectedItem.name !== item.name;
-    const isSelected = selectedItem && selectedItem.name === item.name;
-    const id = item.name;
-   
-    return (
-        <View
-          style={{
-            opacity: opacityOfSelectedItem,
-            backgroundColor: 'transparent',
-          }}
-        >
-         
-        <ListUser
-            item={item}
-            onPress={this.getSharedNode}
-            isHidden={isHidden}
-        />
-     
-        </View>
-   
-    );
+  filterList = text => {
+    var newData = this.arrayDate;
+    newData = this.arrayDate.filter(item => {
+      const itemData = item.name.toLowerCase();
+      // {Alert.alert(itemData)}
+      const textData = text.toLowerCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+  
   };
-
 
   render() {
     const { opacityOfSelectedItem } = this.state;
@@ -146,32 +140,38 @@ class List extends PureComponent {
     return (
     
       <View style={styles.container}>
+              <SearchBar
+            onPressToFocus
+            autoFocus={false}
+            fontColor="gray"
+            iconColor="gray"
+            shadowColor="black"
+            cancelIconColor="gray"
+            backgroundColor="white"
+            placeholder="Search here"
+            onChangeText={text => {
+              this.filterList(text);
+            }}
+            onPressCancel={() => {
+              this.filterList("");
+            }}
+            // onPress={() => alert("onPress")}
+          />
+
         <Toolbar/>
         <ScrollView >
-                    <View>
-                              <View>
+                    <View >
+                              <View >
                                           <FlatList
                                                horizontal={true}
-                                                data={this.arrayTaskUser}
+                                                data={this.arrayDate}
+                                                keyExtractor={(item, index) => index}
                                                 dataExtra={{ phase, opacityOfSelectedItem }}
-                                                keyExtractor={item => item.name}
                                                 renderItem={this.renderUser}
-                                                contentContainerStyle={{margin:4}}
+                                              
                                           />
-                             </View>
-
-                             <View>
-                                    
-                                        <FlatList
-                                               horizontal={true}
-                                                data={this.arrayTaskUser}
-                                                dataExtra={{ phase, opacityOfSelectedItem }}
-                                                keyExtractor={item => item.name}
-                                                renderItem={this.renderUser}
-                                                contentContainerStyle={{margin:4}}
-                                          />
-                            
-                            </View>  
+                              </View> 
+ 
                           </View>     
                           </ScrollView>  
           </View> 

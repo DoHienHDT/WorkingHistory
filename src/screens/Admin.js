@@ -5,7 +5,7 @@ import { SharedElementRenderer } from 'react-native-motion';
 import List from './List/List';
 // import Detail from './Detail/Detail';
 // import ToolbarBackground from './Detail/ToolbarBackground';
-import SearchBar from "react-native-dynamic-search-bar";
+
 
 export default class Admin extends React.Component {
 
@@ -15,7 +15,22 @@ export default class Admin extends React.Component {
         headerStyle: {
           backgroundColor: '#5d99c6',
         },
-        headerLeft:  (<TouchableHighlight onPress={() => navigation.navigate("Login")} underlayColor={'#3498db'}>
+        headerLeft:  (<TouchableHighlight onPress={() => {
+          Alert.alert(
+              'Đăng xuất',
+              'Bạn có chắc kết thúc phiên làm việc',
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                {text: 'OK', onPress: () =>  navigation.navigate("Login")},
+              ],
+              {cancelable: false},
+            );
+      
+      }}underlayColor={'#3498db'}>
         <Image style={{ width: 35, height: 35, marginLeft: 10 }}  source={require('../assets/back.png')} />
         </TouchableHighlight>)
     });
@@ -86,23 +101,7 @@ export default class Admin extends React.Component {
       <SharedElementRenderer>
        
         <View style={styles.container}>
-        <SearchBar
-            onPressToFocus
-            autoFocus={false}
-            fontColor="gray"
-            iconColor="gray"
-            shadowColor="black"
-            cancelIconColor="gray"
-            backgroundColor="white"
-            placeholder="Search here"
-            // onChangeText={text => {
-            //   this.filterList(text);
-            // }}
-            // onPressCancel={() => {
-            //   this.filterList("");
-            // }}
-            // onPress={() => alert("onPress")}
-          />
+  
           {this.renderPage()}
         </View>
       </SharedElementRenderer>

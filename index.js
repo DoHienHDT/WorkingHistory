@@ -8,6 +8,7 @@ import {name as appName} from './app.json';
 import LoginScreen from './src/screens/Login'
 import AdminScreen from './src/screens/Admin';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+import UserScreen from './src/screens/User';
 const RootStack = createStackNavigator(
     {
       Login: {
@@ -17,6 +18,13 @@ const RootStack = createStackNavigator(
           screen: AdminScreen,
           navigationOptions: {
             title: 'Admin',
+            headerTitleStyle :{color: 'white'},
+          },
+        },
+        User: {
+          screen: UserScreen,
+          navigationOptions: {
+            title: 'Dev',
             headerTitleStyle :{color: 'white'},
           },
         },
@@ -35,4 +43,4 @@ const RootStack = createStackNavigator(
       }
   );
   const AppContainer = createAppContainer(RootStack);
-AppRegistry.registerComponent(appName, () => AdminScreen);
+AppRegistry.registerComponent(appName, () => AppContainer);

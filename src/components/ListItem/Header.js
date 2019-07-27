@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Alert } from 'react-native';
 // import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 import Avatar from './Avatar';
@@ -8,7 +8,7 @@ import assets from '../../assets';
 
 class Header extends PureComponent {
   render() {
-    const { name, isReceived } = this.props;
+    const { name, isReceived, created_at } = this.props;
 
     let icon = null;
 
@@ -23,6 +23,8 @@ class Header extends PureComponent {
         <Avatar text={name.substring(0, 1)} src={assets[name]} />
         <View style={styles.nameContainer}>
           <Text>Họ và tên:   {name}</Text>
+          <Text style={{fontSize:10}}>Ngày cập nhật:   {created_at}</Text>
+          
         </View>
         <View style={styles.rightContainer}>{icon}</View>
       </Row>
