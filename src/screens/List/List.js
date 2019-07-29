@@ -15,11 +15,19 @@ class List extends PureComponent {
   constructor(props) {
     super(props);
     this.MemoUser();
-    this.state = { opacityOfSelectedItem: 1, selectedItem: null, dataName: [], dataTask: [] };
+    this.state = { opacityOfSelectedItem: 1, selectedItem: null,  isLoading: true,
+      page: 1,
+      seed: 1,
+      refreshing: false};
     this.sharedElementRefs = {};
     // this.arrayDate = [];
     // this.arrayNameUser = [];
     this.arrayData = []
+
+    if (Platform.OS === "android") {
+      UIManager.setLayoutAnimationEnabledExperimental &&
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
   }
 
   state = {
@@ -44,6 +52,7 @@ class List extends PureComponent {
             loading: true,
             dataSource: responseJson["data"],
             returnData: responseJson.data.memo,
+            returnDataBackup: responseJson.data.memo
           }, function(){
             //this.arrayData = this.state.returnData
             // Alert.alert(this.state.memo[1])
@@ -203,17 +212,17 @@ class List extends PureComponent {
   // };
 
   filterList = text => {
-    var newData = this.state.returnData;
-    newData = this.state.returnData.filter(item => {
+    var newData = this.state.returnDataBackup;
+    newData = this.state.returnDataBackup.filter(item => {
       const itemData = item.fullname.toLowerCase();
       // {Alert.alert(itemData)}
       const textData = text.toLowerCase();
       return itemData.indexOf(textData) > -1;
     });
     LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
-    this.setState({
-      returnData: newData
-    });
+      this.setState({
+        returnData: newData
+      });
   };
 
   render() {
