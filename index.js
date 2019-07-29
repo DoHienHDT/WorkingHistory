@@ -42,5 +42,5 @@ const RootStack = createStackNavigator(
         initialRouteName: 'Home',
       }
   );
-  const AppContainer = createAppContainer(RootStack);
-AppRegistry.registerComponent(appName, () => AppContainer);
+const AppContainer = createAppContainer(RootStack);
+AppRegistry.registerComponent(appName, () => AdminScreen);

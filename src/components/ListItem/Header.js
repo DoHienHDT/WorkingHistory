@@ -23,7 +23,7 @@ class Header extends PureComponent {
         <Avatar text={name.substring(0, 1)} src={assets[name]} />
         <View style={styles.nameContainer}>
           <Text>Họ và tên:   {name}</Text>
-          <Text style={{fontSize:10}}>Ngày cập nhật:   {created_at}</Text>
+          {/* <Text style={{fontSize:10}}>Ngày cập nhật:   {created_at}</Text> */}
           
         </View>
         <View style={styles.rightContainer}>{icon}</View>
@@ -41,9 +41,10 @@ const styles = StyleSheet.create({
   nameContainer: {
     flex: 1,
     marginLeft: 16,
+    width: 200
   },
   rightContainer: {
-    width: 48,
+    // width: "100",
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',

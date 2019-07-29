@@ -12,6 +12,7 @@ export default class LoginController extends Component {
       };
 
       Login = async () => {
+        _storeData(this.state.taikhoan,this.state.matkhau);
         fetch('http://wework.stg73.miosys.vn/api/login', {
             method: 'POST',
             headers: {
@@ -58,6 +59,14 @@ export default class LoginController extends Component {
           }
       }
 
+      async componentDidMount() {
+        let value1 = await AsyncStorage.getItem('user');
+        let value2 = await AsyncStorage.getItem('pass');
+        this.setState({ taikhoan: value1 });
+        this.setState({ matkhau: value2 });
+          this.setState({ loading: false });
+    }
+
     render() {
         
         return (
@@ -79,17 +88,9 @@ export default class LoginController extends Component {
                                                     underlineColorAndroid = 'transparent'
                                                     returnKeyType='next'
                                                     onSubmitEditing={()=> this.refs.txtPassword.focus()}
-                                                    onChangeText = {
-                                                        (text) => {
-                                                            this.setState(
-                                                                (previousState) => {
-                                                                    return {
-                                                                        taikhoan: text
-                                                                    };
-                                                                }
-                                                            );
-                                                        }
-                                                    }
+                                                    onChangeText={(taikhoan) => this.setState({taikhoan})}
+value={this.state.taikhoan}
+
                                                 />
                                         </View>
 
@@ -101,17 +102,9 @@ export default class LoginController extends Component {
                                                 underlineColorAndroid = 'transparent'
                                                 secureTextEntry = {true}
                                                 ref={"txtPassword"}
-                                                onChangeText = {
-                                                    (text) => {
-                                                        this.setState(
-                                                            (previousState) => {
-                                                                return {
-                                                                    matkhau: text
-                                                                };
-                                                            }
-                                                        );
-                                                    }
-                                                }
+                                                onChangeText={(matkhau) => this.setState({matkhau})}
+                                                value={this.state.matkhau}
+                                                
                                             />
                                         </View>
                                   
@@ -130,7 +123,14 @@ export default class LoginController extends Component {
         );
     }
 }
-
+_storeData = async (username,password) => {
+    try {
+        await AsyncStorage.setItem('user',''+username);
+        await AsyncStorage.setItem('pass',''+password);
+    } catch (error) {
+        alert('error');
+    }
+};
 const styles = StyleSheet.create({
     backgroundContainer: {
         flex: 1,
