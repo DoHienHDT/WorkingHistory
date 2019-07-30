@@ -24,7 +24,7 @@ const RootStack = createStackNavigator(
         User: {
           screen: UserScreen,
           navigationOptions: {
-            title: 'Dev',
+           
             headerTitleStyle :{color: 'white'},
           },
         },

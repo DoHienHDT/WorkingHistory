@@ -28,7 +28,8 @@ export default class LoginController extends Component {
             this.setState({
                 loading: true,
                 dataSource: responseJson["success"],
-                data: responseJson["data"]
+                data: responseJson["data"],
+                name: responseJson.data.fullname
               }, function(){
               
               }); 
@@ -37,7 +38,11 @@ export default class LoginController extends Component {
                     // this.state.loading = false
                     this.props.navigation.navigate("Admin");
                 }   else {
-                    this.props.navigation.navigate("User");
+                    this.props.navigation.navigate("User", {
+                       taikhoan: this.state.taikhoan,
+                       matkhau: this.state.matkhau,
+                       name: this.state.name
+                    });
                 }
              } else {
                 // this.state.loading = false
@@ -56,15 +61,17 @@ export default class LoginController extends Component {
               taikhoan: '',
               matkhau: '',
               loading: false,
+              name:''
           }
       }
 
       async componentDidMount() {
         let value1 = await AsyncStorage.getItem('user');
         let value2 = await AsyncStorage.getItem('pass');
-        this.setState({ taikhoan: value1 });
-        this.setState({ matkhau: value2 });
-          this.setState({ loading: false });
+        this.setState({ taikhoan: value1,
+            matkhau: value2,
+            loading: false 
+        });
     }
 
     render() {

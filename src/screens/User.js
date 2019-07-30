@@ -20,8 +20,8 @@
       ActivityIndicator,
       TouchableHighlight
     } from 'react-native';
+   
     export default class User extends React.Component {
-
       state = { 
         username: 'vutran',
         password: '12345678',
@@ -165,10 +165,11 @@
           console.error(error);
         }); 
       }
-
-      static navigationOptions= ({ navigation, screenProps }) => ({
+   
+      static navigationOptions= ({ navigation, screenProps }) => (
+        {
         headerLeft: null,
-    
+        title: navigation.state.params.name,
         headerStyle: {
           backgroundColor: '#5d99c6',
         },
@@ -192,8 +193,6 @@
         </TouchableHighlight>)
     });
 
-
-
       logout(){
         Alert.alert(
           'Đăng xuất',
@@ -215,6 +214,9 @@
         }, 300000);
       }
       getdata(){
+      const { navigation } = this.props;
+      const taikhoanDev = navigation.getParam('taikhoan', 'NO-ID');
+      const matkhauDev = navigation.getParam('matkhau', 'NO-ID');
         return fetch('http://wework.stg73.miosys.vn/api/login', {
           method: 'POST',
           headers: {
@@ -222,8 +224,8 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            username: this.state.username,
-            password: this.state.password,
+            username: taikhoanDev,
+            password: matkhauDev,
           }),
         })
         .then((response) => response.json())

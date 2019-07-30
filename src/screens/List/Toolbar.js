@@ -12,29 +12,7 @@ import { Row } from '../../components';
 import translateAndOpacity from '../../animations/translateAndOpacity';
 
 class Toolbar extends PureComponent {
-  renderDetail() {
-    const { opacityValue, translateY } = this.state;
-    const { onBackPress } = this.props;
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.statusBar} />
-        <TouchableWithoutFeedback onPress={onBackPress}>
-          <Animated.View style={animationStyle}>
-            <Row style={styles.toolbarContainer}>
-              <Row style={styles.backContainer}>
-                {/* <Ionicons name="ios-arrow-back" size={24} color="white" /> */}
-              
-              </Row>
-              <View style={styles.menuIconContainer}>
-                {/* <Feather name="share" size={24} color="white" /> */}
-              </View>
-            </Row>
-          </Animated.View>
-        </TouchableWithoutFeedback>
-      </View>
-    );
-  }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -64,7 +42,7 @@ class Toolbar extends PureComponent {
 const styles = StyleSheet.create({
   container: {},
   toolbarContainer: {
-    height: 56,
+    height: 40,
     alignItems: 'center',
     paddingHorizontal: 16,
     // backgroundColor: '#90caf9',
@@ -81,7 +59,7 @@ const styles = StyleSheet.create({
 
   },
   statusBar: {
-    height: 24,
+    height: 10,
 
   },
   titleBackText: {

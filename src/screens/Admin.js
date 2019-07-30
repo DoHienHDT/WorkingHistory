@@ -37,66 +37,27 @@ export default class Admin extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       selectedItem: null,
       phase: 'phase-0',
     };
   }
-  onItemPressed = item => {
-    this.setState({
-      // phase: 'phase-1',
-      selectedItem: item,
-    });
-  };
-  onBackPressed = () => {
-    this.setState({
-      phase: 'phase-3',
-    });
-  };
-  onSharedElementMovedToDestination = () => {
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({
-        phase: 'phase-2',
-      });
-    });
-  };
-  onSharedElementMovedToSource = () => {
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({
-        selectedItem: null,
-        phase: 'phase-0',
-      });
-    });
-  };
+
   renderPage() {
     const { selectedItem, position, detailItem, phase } = this.state;
 
     return (
-
       <View style={{ flex: 1 }}>
-     
         <List
           selectedItem={selectedItem}
           onItemPress={this.onItemPressed}
           phase={phase}
         />
-    
       </View>
     );
   }
   
-
   render() {
-    const {
-      selectedItem,
-      goToDetail,
-      position,
-      detailItem,
-      goBackRequested,
-      phase,
-    } = this.state;
-
     return (
       <SharedElementRenderer>
        
@@ -110,12 +71,9 @@ export default class Admin extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  color: {
-    
-  },
+
   container: {
     backgroundColor: "#90caf9",
-  
     flex: 1,
   },
 });

@@ -20,9 +20,6 @@ class List extends PureComponent {
       seed: 1,
       refreshing: false};
     this.sharedElementRefs = {};
-    // this.arrayDate = [];
-    // this.arrayNameUser = [];
-    this.arrayData = []
 
     if (Platform.OS === "android") {
       UIManager.setLayoutAnimationEnabledExperimental &&
@@ -241,11 +238,9 @@ class List extends PureComponent {
   };
 
   render() {
-    
     return (
-    
       <View style={styles.container}>
-        <SearchBar
+          <SearchBar
           onPressToFocus
           autoFocus={false}
           fontColor="gray"
@@ -260,16 +255,15 @@ class List extends PureComponent {
           onPressCancel={() => {
             this.filterList("");
           }}
-            onPress={() => alert("onPress")}
+          onPress={() => alert("onPress")}
         />
         <Toolbar/>
+
+       
         <ScrollView>
           <View >
               <FlatList
-                //  horizontal={true}
                 data={this.state.returnData}
-                // keyExtractor={(item, index) => index}
-                // dataExtra={{ phase, opacityOfSelectedItem }}
                 renderItem={this.renderUser}
               /> 
           </View>
@@ -282,27 +276,15 @@ class List extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    
   },
-  nameContainer: {
  
-    marginLeft: 10,
-   
-  
-  },
-  containerRow: {
-    flex: 1,
-    height: 400,
-    width: 250,
-   
-  },
   styleName: {
     flex:1,
     backgroundColor: 'white',
-    marginHorizontal: 16,
-    marginVertical: 40,
+    marginHorizontal: 10,
+    marginVertical: 30,
     paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
     borderRadius: 5,
     
     ...getPlatformElevation(2),
@@ -312,18 +294,7 @@ const styles = StyleSheet.create({
     width: 1,
     height: "100%",
     backgroundColor: 'black'
-  },
-  imageWrapper: {
-    borderWidth: 2,
-    borderColor: "#AE8B8C"
-  },
-  mediaWrapper: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: "space-around",
-  
-    marginVertical: 3,
-  },
+  }
 });
 
 export default List;
