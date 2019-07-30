@@ -43,4 +43,4 @@ const RootStack = createStackNavigator(
       }
   );
 const AppContainer = createAppContainer(RootStack);
-AppRegistry.registerComponent(appName, () => AdminScreen);
+AppRegistry.registerComponent(appName, () => AppContainer);

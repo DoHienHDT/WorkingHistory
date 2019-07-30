@@ -127,7 +127,7 @@ class List extends PureComponent {
     const { opacityOfSelectedItem } = this.state;
   
     return (
-      <ScrollView horizontal = {true}>
+      <ScrollView horizontal = {true}  >
                 <View style={[styles.styleName]} pointerEvents="box-only">     
                       <Header  name={item.fullname}/>  
                 </View>
@@ -145,30 +145,45 @@ class List extends PureComponent {
   
   taskMemo = ({item}) => {
     return(
-      <ScrollView horizontal = {false}>
+      <ScrollView>
         <View style={[styles.styleName]} pointerEvents="box-only">
-          <Text>Date: {item.created_at} </Text>
-          {
-            [item.todo].map( index => {
-              return (
-              <Text style={{color: "#e91e63"}}>{index }</Text> 
-            );
-          })}
-          {[item.doing].map( index => {
-            return (
-              <Text style={{color: "#ff9800"}}>{index}</Text> 
-            );
-          })}
-          {[item.done].map( index => {
-            return (
-              <Text style={{color: "#0000ff"}}>{index}</Text> 
-            );
-          })}
+          <Text>Date: {item.created_at}{"\n"} </Text>
+            <FlatList 
+              horizontal={true}
+                  data={[item]}
+                  renderItem={this.lineMemo} 
+            />
         </View>
-      </ScrollView>
+        </ScrollView>
     )
   }
 
+  lineMemo = ({item}) => {
+      return (
+       <View>
+          {
+            item.todo.map( index => {
+              return (
+              <Text style={{color: "#e91e63", paddingTop: 5}}>{index }</Text> 
+            );
+          })}
+
+          {
+            item.doing.map( index => {
+            return (
+              <Text style={{color: "#ff9800", paddingTop: 5}}>{index}</Text> 
+            );
+          })}
+
+          {
+            item.done.map( index => {
+            return (
+              <Text style={{color: "#4caf50", paddingTop: 5}}>{index}</Text> 
+            );
+          })}
+     </View>
+      );
+  }
 
   // taskMemo = ({item}) => {
   //   array.forEach(element => {
@@ -248,17 +263,17 @@ class List extends PureComponent {
             onPress={() => alert("onPress")}
         />
         <Toolbar/>
-        <View >
+        <ScrollView>
           <View >
-            <FlatList
-              //  horizontal={true}
-              data={this.state.returnData}
-              // keyExtractor={(item, index) => index}
-              // dataExtra={{ phase, opacityOfSelectedItem }}
-              renderItem={this.renderUser}
-            /> 
-          </View> 
-        </View>
+              <FlatList
+                //  horizontal={true}
+                data={this.state.returnData}
+                // keyExtractor={(item, index) => index}
+                // dataExtra={{ phase, opacityOfSelectedItem }}
+                renderItem={this.renderUser}
+              /> 
+          </View>
+        </ScrollView>
       </View> 
     );
   }

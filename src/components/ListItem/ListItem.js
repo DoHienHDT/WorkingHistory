@@ -3,9 +3,7 @@ import { View, TouchableWithoutFeedback, StyleSheet, Alert } from 'react-native'
 import { ScaleAndOpacity } from 'react-native-motion';
 
 import Header from './Header';
-import Content from './Content';
 import { getPlatformElevation } from '../../utils';
-import { ScrollView } from 'react-native-gesture-handler';
 class ListItem extends PureComponent {
 
   onPressed = event => {
@@ -25,7 +23,7 @@ class ListItem extends PureComponent {
             <TouchableWithoutFeedback onPress={this.onPressed}>
               <View style={[styles.container]} pointerEvents="box-only">
                 <Header name={name} created_at={created_at} isReceived={isReceived} />
-                {/* <Content  {...rest} /> */}
+              
                   
               </View>
             </TouchableWithoutFeedback>
