@@ -12,6 +12,7 @@ export default class LoginController extends Component {
       };
 
       Login = async () => {
+          
         _storeData(this.state.taikhoan,this.state.matkhau);
         fetch('http://wework.stg73.miosys.vn/api/login', {
             method: 'POST',
@@ -19,35 +20,59 @@ export default class LoginController extends Component {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "username": this.state.taikhoan,
-                "password":this.state.matkhau,
+                "username": this.state.taikhoan.toLowerCase(),
+                "password":this.state.matkhau.toLowerCase(),
              })
             })
           .then((response) => response.json())
           .then((responseJson) => {
-            this.setState({
-                loading: true,
-                dataSource: responseJson["success"],
-                data: responseJson["data"],
-                name: responseJson.data.fullname
-              }, function(){
-              
-              }); 
-            if (this.state.dataSource === "Login success")  {
-                if (this.state.data.group_id === 1) {
-                    // this.state.loading = false
-                    this.props.navigation.navigate("Admin");
-                }   else {
-                    this.props.navigation.navigate("User", {
-                       taikhoan: this.state.taikhoan,
-                       matkhau: this.state.matkhau,
-                       name: this.state.name
-                    });
-                }
-             } else {
-                // this.state.loading = false
+              if (responseJson["message"] === "Login success") {
+                this.setState({ 
+                    dataSource: responseJson["message"],
+                    data: responseJson["data"],
+                    name: responseJson["data"]["fullname"]
+                 }, function(){
+                    if (this.state.data.group_id === 1 || this.state.data.group_id === 2) {
+                        this.props.navigation.navigate("Admin", {
+                            taikhoan: this.state.taikhoan,
+                            matkhau: this.state.matkhau
+                        });
+                    } else {
+                        this.props.navigation.navigate("User", {
+                            taikhoan: this.state.taikhoan,
+                            matkhau: this.state.matkhau,
+                            name: this.state.name
+                        });
+                    }
+                })
+              } else {
                 Alert.alert("Tên truy cập hoặc mật khẩu không đúng");
-             }    
+              }
+            // this.setState({
+            //     loading: true,
+            //     dataSource: responseJson["message"],
+            //     data: responseJson["data"],
+            //     name: responseJson["data"]["fullname"]
+            //   }, function(){
+
+            //     if (this.state.dataSource === "Login success")  {
+            //         {Alert.alert(this.state.data)}
+            //         if (this.state.data.group_id === 1) {
+            //             // this.state.loading = false
+            //             this.props.navigation.navigate("Admin");
+            //         }   else {
+            //             this.props.navigation.navigate("User", {
+            //                taikhoan: this.state.taikhoan,
+            //                matkhau: this.state.matkhau,
+            //                name: this.state.name
+            //             });
+            //         }
+            //      } else {
+            //         // this.state.loading = false
+            //         Alert.alert("Tên truy cập hoặc mật khẩu không đúng");
+            //      } 
+            //   }); 
+            
           })
           .catch((error) => {
             console.error(error);
@@ -56,7 +81,8 @@ export default class LoginController extends Component {
     
       constructor(props) {
           super(props);
-       
+          console.disableYellowBox = true;
+          console.di
           this.state = {
               taikhoan: '',
               matkhau: '',

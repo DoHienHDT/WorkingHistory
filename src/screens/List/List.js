@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Alert, View, FlatList, StyleSheet,LayoutAnimation, Text} from 'react-native';
-import Row from '../../components/Row';
+import { Alert, View, FlatList, StyleSheet,LayoutAnimation, Text,UIManager} from 'react-native'; 
 import Header from '../../components/ListItem/Header';
 import Toolbar from './Toolbar';
 import { ListItem } from '../../components';
@@ -33,16 +32,18 @@ class List extends PureComponent {
   };
 
   MemoUser = async () => {
+    const { taikhoanAdmin, matkhauAdmin } = this.props;
     fetch('http://wework.stg73.miosys.vn/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            "username": "admin",
-            "password":"12345678",
+            "username": taikhoanAdmin.toLowerCase(),
+            "password":matkhauAdmin.toLowerCase(),
          })
         })
+      
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -51,8 +52,9 @@ class List extends PureComponent {
             returnData: responseJson.data.memo,
             returnDataBackup: responseJson.data.memo
           }, function(){
+       
             //this.arrayData = this.state.returnData
-            // Alert.alert(this.state.memo[1])
+            // Alert.alert(taikhoanAdmin.toLowerCase())
 
             // for (var i = 0; i < this.state.returnData.length; i++){
             //   fullname = responseJson["data"]["memo"][i]["fullname"];

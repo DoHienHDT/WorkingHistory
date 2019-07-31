@@ -44,14 +44,14 @@ export default class Admin extends React.Component {
   }
 
   renderPage() {
-    const { selectedItem, position, detailItem, phase } = this.state;
+    const { navigation } = this.props;
+    const taikhoanDev = navigation.getParam('taikhoan', 'NO-ID');
+    const matkhauDev = navigation.getParam('matkhau', 'NO-ID');
 
     return (
       <View style={{ flex: 1 }}>
-        <List
-          selectedItem={selectedItem}
-          onItemPress={this.onItemPressed}
-          phase={phase}
+        <List taikhoanAdmin = {taikhoanDev}
+              matkhauAdmin = {matkhauDev}
         />
       </View>
     );
