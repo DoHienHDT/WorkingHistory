@@ -224,8 +224,8 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            username: taikhoanDev,
-            password: matkhauDev,
+            username: taikhoanDev.toLowerCase(),
+            password: matkhauDev.toLowerCase(),
           }),
         })
         .then((response) => response.json())
