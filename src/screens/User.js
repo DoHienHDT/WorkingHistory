@@ -20,6 +20,7 @@
       ActivityIndicator,
       TouchableHighlight
     } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
    
     export default class User extends React.Component {
       state = { 
@@ -150,6 +151,7 @@
         })
         .then((response) => response.json())
         .then((responseJson) => {
+          {Alert.alert(responseJson.success)}
           if (responseJson.success === 'Update success'){
             Alert.alert(
               'SUBMIT SUCCESS',
@@ -191,6 +193,7 @@
         <Image style={{ width: 35, height: 35, marginLeft: 10 }}  source={require('../assets/back.png')} />
         </TouchableHighlight>)
     });
+
       logout(){
         Alert.alert(
           'Đăng xuất',
@@ -206,12 +209,14 @@
           {cancelable: false},
         );
       }
+
       componentDidMount() {
         setInterval(() => {
           this.getdata()
         }, 300000);
       }
-      getdata(){
+
+      getdata() {
       const { navigation } = this.props;
       const taikhoanDev = navigation.getParam('taikhoan', 'NO-ID');
       const matkhauDev = navigation.getParam('matkhau', 'NO-ID');
@@ -228,9 +233,9 @@
         })
         .then((response) => response.json())
         .then((responseJson) => {
-          let a = responseJson.data.memo.todo.slice(0, -1);
-          let b = responseJson.data.memo.doing.slice(0, -1);
-          let c = responseJson.data.memo.done.slice(0, -1);
+          let a = responseJson.data.memo.todo;
+          let b = responseJson.data.memo.doing;
+          let c = responseJson.data.memo.done;
           let memo_Id = responseJson.data.memo.memo_id
           let tokenId = responseJson.token
           let fullnameUser = responseJson.data.fullname
@@ -243,6 +248,7 @@
             activityIndicator: false,
             fullname: fullnameUser
           }, function(){
+            // {Alert.alert(responseJson.data.memo.todo.slice(0, -1))}
           });
         })
         .catch((error) =>{
@@ -381,7 +387,7 @@
                                     <View style={{height:65,flexDirection:'row'}}>
                                       <View style={{flex:3,alignItems:'center',flexDirection:'row',marginLeft:20}}><Text style={{fontSize:15}}>{item}</Text></View>
                                       <View style={{flex:2,justifyContent:'space-evenly',flexDirection:'row',alignItems:'center',marginRight:10}}>
-                                          <TouchableOpacity onPress={() => this.doneToTodo(vl=item,vt=index)}>
+                                            <TouchableOpacity onPress={() => this.doneToTodo(vl=item,vt=index)}>
                                               <Image 
                                                 style={{width:25,height:25}}
                                                 source = {require('../assets/square.png')}
@@ -409,11 +415,13 @@
                     </ScrollView>
                 </View>
 
-                <View style={{height:50,marginTop:5,backgroundColor:'#32A4D4'}}>
-                  <TouchableOpacity onPress={this.submit}>
-                    <Text style={{fontSize:20,height:50,fontWeight:'bold',textAlign:'center',paddingVertical:10}}>Submit</Text>
-                  </TouchableOpacity>
-                </View>
+                <SafeAreaView style={{backgroundColor:'#32A4D4', marginBottom: 120, margin: 10, borderRadius: 5}}>
+                  <View >
+                    <TouchableOpacity onPress={this.submit}>
+                      <Text style={{fontSize:20,height:50,fontWeight:'bold',textAlign:'center',paddingVertical:10, color: "white"}}>Submit</Text>
+                    </TouchableOpacity>
+                  </View>
+                </SafeAreaView>
               </View> 
 
             {this.state.hidden ? (
