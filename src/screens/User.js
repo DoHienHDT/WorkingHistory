@@ -151,8 +151,8 @@ import { SafeAreaView } from 'react-navigation';
         })
         .then((response) => response.json())
         .then((responseJson) => {
-          {Alert.alert(responseJson.success)}
-          if (responseJson.success === 'Update success'){
+          // {Alert.alert(responseJson.message)}
+          if (responseJson.message === 'Update success'){
             Alert.alert(
               'SUBMIT SUCCESS',
               'Báo cáo công việc thành công',
