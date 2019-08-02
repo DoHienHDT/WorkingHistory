@@ -187,12 +187,10 @@
                 ],
                 {cancelable: false},
               );
-        
         }} underlayColor={'#3498db'}>
         <Image style={{ width: 35, height: 35, marginLeft: 10 }}  source={require('../assets/back.png')} />
         </TouchableHighlight>)
     });
-
       logout(){
         Alert.alert(
           'Đăng xuất',
@@ -251,10 +249,11 @@
           console.error(error);
       });
       }
+      
       componentWillMount(){
           this.getdata()
       }
-       
+
       render(){
         console.disableYellowBox = true;
         return(

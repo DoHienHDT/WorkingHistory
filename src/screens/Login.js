@@ -122,8 +122,8 @@ export default class LoginController extends Component {
                                                     returnKeyType='next'
                                                     onSubmitEditing={()=> this.refs.txtPassword.focus()}
                                                     onChangeText={(taikhoan) => this.setState({taikhoan})}
-value={this.state.taikhoan}
-
+                                                    value={this.state.taikhoan}
+                                                    clearButtonMode = "always"
                                                 />
                                         </View>
 
