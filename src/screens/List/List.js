@@ -10,7 +10,6 @@ import { getPlatformElevation } from '../../utils';
 
 class List extends PureComponent {
 
-
   constructor(props) {
     super(props);
     this.MemoUser();
@@ -279,7 +278,6 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
   },
- 
   styleName: {
     flex:1,
     backgroundColor: 'white',

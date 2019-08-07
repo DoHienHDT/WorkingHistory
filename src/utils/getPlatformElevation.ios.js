@@ -10,7 +10,6 @@ const getPlatformElevation = elevation => {
     }
   
     return {
-      
       shadowColor: 'gray',
       shadowOpacity: 1.3,
       shadowRadius: elevation / 2,
